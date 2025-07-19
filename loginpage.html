@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #87CEEB, #B0E0E6);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .home-container {
+            background: white;
+            padding: 60px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 800px;
+            min-height: 600px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+
+        .home-title {
+            text-align: center;
+            color: #333;
+            margin-bottom: 40px;
+            font-size: 42px;
+            font-weight: bold;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus, input[type="password"]:focus {
+            outline: none;
+            border-color: #87CEEB;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #87CEEB, #B0E0E6);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+        }
+
+        .hint-text {
+            background: #f0f8ff;
+            color: #4682b4;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+            border: 1px solid #b0e0e6;
+            font-size: 14px;
+        }
+
+        .hint-text strong {
+            color: #2c5aa0;
+        }
+
+        .error-message {
+            background: #ffebee;
+            color: #c62828;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 15px;
+            text-align: center;
+            border-left: 4px solid #c62828;
+        }
+
+        .welcome-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .welcome-section h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 32px;
+        }
+
+        .welcome-section p {
+            color: #666;
+            font-size: 20px;
+            margin-bottom: 40px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .dashboard-card {
+            background: linear-gradient(135deg, #f0f8ff, #e6f3ff);
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid #b0e0e6;
+            transition: transform 0.3s ease;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .dashboard-card h3 {
+            color: #2c5aa0;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        .dashboard-card p {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .user-info {
+            background: linear-gradient(135deg, #87ceeb, #b0e0e6);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .user-info h3 {
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+
+        .logout-section {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                margin: 20px;
+                padding: 30px 20px;
+            }
+            
+            .home-container {
+                margin: 20px;
+                padding: 40px 20px;
+                min-height: auto;
+            }
+            
+            .home-title {
+                font-size: 32px;
+            }
+            
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="loginPage" class="container">
+        <h1>Login</h1>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" placeholder="Enter username">
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" placeholder="Enter password">
+            </div>
+            <button type="submit">Login</button>
+            <div id="errorMessage" class="error-message hidden"></div>
+            <div class="hint-text">
+                <strong>Demo Credentials:</strong><br>
+                Username: <strong>admin</strong><br>
+                Password: <strong>password123</strong>
+            </div>
+        </form>
+    </div>
+    <div id="homePage" class="home-container hidden">
+        <div class="welcome-section">
+            <h1 class="home-title">Dashboard</h1>
+            <h2 id="welcomeMessage"></h2>
+            <p>You have successfully logged in to your account.</p>
+        </div>
+        <div class="user-info">
+            <h3>User Information</h3>
+            <p>Session Status: Active</p>
+            <p>Login Time: <span id="loginTime"></span></p>
+        </div>
+        <div class="dashboard-grid">
+            <div class="dashboard-card">
+                <h3>Profile</h3>
+                <p>Manage your account settings and personal information.</p>
+            </div>
+            <div class="dashboard-card">
+                <h3>Settings</h3>
+                <p>Configure your preferences and application settings.</p>
+            </div>
+            <div class="dashboard-card">
+                <h3>Analytics</h3>
+                <p>View your activity statistics and usage reports.</p>
+            </div>
+            <div class="dashboard-card">
+                <h3>Support</h3>
+                <p>Get help and access documentation resources.</p>
+            </div>
+        </div>
+        <div class="logout-section">
+            <button id="logoutBtn">Logout</button>
+        </div>
+    </div>
+    <script src="./contents.js"></script>
+</body>
+</html>
